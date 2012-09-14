@@ -3,7 +3,6 @@ module Highrise
     include Pagination
     include Taggable
     include Searchable
-    include HasSubjectData
     
     def company
       Company.find(company_id) if company_id
@@ -52,15 +51,6 @@ module Highrise
       end
     end
     
-    def new_field(sfl,sfi)
-      sd = SubjectData.new(:subject_field_label => sfl, :value => nil, :subject_field_id => sfi)
-      if attributes["subject_datas"] 
-        attributes["subject_datas"] << sd
-      else
-        attributes["subject_datas"] = [sd]
-      end
-      sd
-    end
     
   end
 end

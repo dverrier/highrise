@@ -10,6 +10,14 @@ module Highrise
       File.join('https://', base, element_path(n)).gsub(".xml",'')
     end
 
+    # set this to a hash mapping custom field labels to custom field IDs
+    def self.subject_field_ids
+      @sfield_ids ||= {}
+    end
+    def self.subject_field_ids= sfield_ids
+      @sfield_ids = sfield_ids
+    end
+    
     protected
 
     # Fix for ActiveResource 3.1+ errors

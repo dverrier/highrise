@@ -6,7 +6,6 @@
   pagination
   taggable
   searchable
-  has_subject_data
   
   subject
   
