@@ -16,6 +16,10 @@ module Highrise
       Task.create attrs
     end
 
+    def contact_data
+      attributes[:contact_data] ||= ContactData.new
+    end
+    
     def emails
       Email.find_all_across_pages(:from => "/#{self.class.collection_name}/#{id}/emails.xml")
     end
