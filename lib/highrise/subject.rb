@@ -20,6 +20,10 @@ module Highrise
       attributes[:contact_data] ||= ContactData.new
     end
     
+    def add_contact_details *args
+      contact_data.add_data *args
+    end
+    
     def emails
       Email.find_all_across_pages(:from => "/#{self.class.collection_name}/#{id}/emails.xml")
     end
