@@ -7,21 +7,21 @@ shared_examples_for "a taggable class" do
     end
   end
 
-  it { subject.class.included_modules.should include(Highrise::Taggable) }
+  it { expect(subject.class.included_modules).to include(Highrise::Taggable) }
 
   it "#tags" do
-    subject.should_receive(:get).with(:tags).and_return(@tags)
-    subject.tags.should == @tags
+    expect(subject).to receive(:get).with(:tags).and_return(@tags)
+    expect(subject.tags).to eq(@tags)
   end
   
   it "#tag!(tag_name)" do
-    subject.should_receive(:post).with(:tags, :name => "client" ).and_return(true)
-    subject.tag!("client").should be_true
+    expect(subject).to receive(:post).with(:tags, :name => "client" ).and_return(true)
+    expect(subject.tag!("client")).to be_truthy
   end
   
   it "#untag!(tag_name)" do
-    subject.should_receive(:get).with(:tags).and_return(@tags)
-    subject.should_receive(:delete).with("tags/414578").and_return(true)
-    subject.untag!("cliente").should be_true
+    expect(subject).to receive(:get).with(:tags).and_return(@tags)
+    expect(subject).to receive(:delete).with("tags/414578").and_return(true)
+    expect(subject.untag!("cliente")).to be_truthy
   end
 end

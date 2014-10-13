@@ -3,16 +3,16 @@ require 'spec_helper'
 describe Highrise::Tag do
   subject { Highrise::Tag.new(:id => 1, :name => "Name") }
   
-  it { should be_a_kind_of Highrise::Base }
+  it { is_expected.to be_a_kind_of Highrise::Base }
 
   it "supports equality" do
     tag = Highrise::Tag.new(:id => 1, :name => "Name")
-    subject.should == tag
+    expect(subject).to eq(tag)
   end
   
   it ".find_by_name" do
     tag = Highrise::Tag.new(:id => 2, :name => "Next")
-    Highrise::Tag.should_receive(:find).with(:all).and_return([tag, subject])
-    Highrise::Tag.find_by_name("Name").should == subject
+    expect(Highrise::Tag).to receive(:find).with(:all).and_return([tag, subject])
+    expect(Highrise::Tag.find_by_name("Name")).to eq(subject)
   end
 end

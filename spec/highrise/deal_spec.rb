@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Highrise::Deal do
   subject { Highrise::Deal.new(:id => 1) }
     
-  it { should be_a_kind_of Highrise::Subject }
+  it { is_expected.to be_a_kind_of Highrise::Subject }
   
   it ".add_note" do
-    Highrise::Note.should_receive(:create).with({:body=>"body", :subject_id=>1, :subject_type=>'Deal'}).and_return(mock('note'))
+    expect(Highrise::Note).to receive(:create).with({:body=>"body", :subject_id=>1, :subject_type=>'Deal'}).and_return(double('note'))
     subject.add_note :body=>'body'
   end
   
@@ -15,7 +15,7 @@ describe Highrise::Deal do
     
     %w[pending won lost].each do |status|
       it "updates status to #{status}" do
-        subject.should_receive(:put).with(:status, :status => {:name => status})
+        expect(subject).to receive(:put).with(:status, :status => {:name => status})
         subject.update_status(status)
       end
     end

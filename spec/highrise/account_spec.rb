@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Highrise::Account do
-  it { should be_a_kind_of Highrise::Base }
+  it { is_expected.to be_a_kind_of Highrise::Base }
   
   it ".me" do
-    Highrise::Account.should_receive(:find).with(:one, {:from => "/account.xml"}).and_return(subject)
-    Highrise::Account.me.should == subject
+    expect(Highrise::Account).to receive(:find).with(:one, {:from => "/account.xml"}).and_return(subject)
+    expect(Highrise::Account.me).to eq(subject)
   end
 end

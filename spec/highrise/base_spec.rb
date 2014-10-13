@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Highrise::Base do
-  it { subject.should be_a_kind_of ActiveResource::Base }
+  it { expect(subject).to be_a_kind_of ActiveResource::Base }
 
   describe "dynamic finder methods" do
     context "without pagination" do
@@ -9,14 +9,14 @@ describe Highrise::Base do
         @deal_one   = Highrise::Base.new(:id => 1, :name => "A deal")
         @deal_two   = Highrise::Base.new(:id => 2, :name => "A deal")
         @deal_three = Highrise::Base.new(:id => 3, :name => "Another deal")
-        Highrise::Base.should_receive(:find).with(:all).and_return([@deal_one, @deal_two, @deal_three])
+        expect(Highrise::Base).to receive(:find).with(:all).and_return([@deal_one, @deal_two, @deal_three])
       end
       it ".find_by_(attribute) finds one" do
-        Highrise::Base.find_by_name("A deal").should == @deal_one
+        expect(Highrise::Base.find_by_name("A deal")).to eq(@deal_one)
       end
 
       it ".find_all_by_(attribute) finds all" do
-        Highrise::Base.find_all_by_name("A deal").should == [@deal_one, @deal_two]
+        expect(Highrise::Base.find_all_by_name("A deal")).to eq([@deal_one, @deal_two])
       end
     end
 
@@ -26,14 +26,14 @@ describe Highrise::Base do
         @john_doe   = PaginatedBaseClass.new(:id => 1, :first_name => "John")
         @john_baker = PaginatedBaseClass.new(:id => 2, :first_name => "John")
         @joe_smith  = PaginatedBaseClass.new(:id => 3, :first_name => "Joe")
-        PaginatedBaseClass.should_receive(:find_all_across_pages).and_return([@john_doe, @john_baker, @joe_smith])
+        expect(PaginatedBaseClass).to receive(:find_all_across_pages).and_return([@john_doe, @john_baker, @joe_smith])
       end
       it ".find_by_(attribute) finds one" do
-        PaginatedBaseClass.find_by_first_name("John").should == @john_doe
+        expect(PaginatedBaseClass.find_by_first_name("John")).to eq(@john_doe)
       end
 
       it ".find_all_by_(attribute) finds all" do
-        PaginatedBaseClass.find_all_by_first_name("John").should == [@john_doe, @john_baker]
+        expect(PaginatedBaseClass.find_all_by_first_name("John")).to eq([@john_doe, @john_baker])
       end
     end
 

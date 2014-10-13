@@ -3,32 +3,32 @@ require 'spec_helper'
 describe Highrise::Subject do
   subject { Highrise::Subject.new(:id => 1) }
 
-  it { should be_a_kind_of Highrise::Base }
+  it { is_expected.to be_a_kind_of Highrise::Base }
 
   it "#notes" do
-    Highrise::Note.should_receive(:find_all_across_pages).with({:from=>"/subjects/1/notes.xml"}).and_return("notes")
-    subject.notes.should == "notes"
+    expect(Highrise::Note).to receive(:find_all_across_pages).with({:from=>"/subjects/1/notes.xml"}).and_return("notes")
+    expect(subject.notes).to eq("notes")
   end
 
   it "#add_note" do
-    Highrise::Note.should_receive(:create).with({:body=>"body", :subject_id=>1, :subject_type=>'Subject'}).and_return(mock('note'))
+    expect(Highrise::Note).to receive(:create).with({:body=>"body", :subject_id=>1, :subject_type=>'Subject'}).and_return(double('note'))
     subject.add_note :body=>'body'
   end
   
   it "#add_task" do
-    Highrise::Task.should_receive(:create).with({:body=>"body", :subject_id=>1, :subject_type=>'Subject'}).and_return(mock('task'))
+    expect(Highrise::Task).to receive(:create).with({:body=>"body", :subject_id=>1, :subject_type=>'Subject'}).and_return(double('task'))
     subject.add_task :body=>'body'
   end
 
   it "#emails" do
-    Highrise::Email.should_receive(:find_all_across_pages).with({:from=>"/subjects/1/emails.xml"}).and_return("emails")
-    subject.emails.should == "emails"
+    expect(Highrise::Email).to receive(:find_all_across_pages).with({:from=>"/subjects/1/emails.xml"}).and_return("emails")
+    expect(subject.emails).to eq("emails")
   end
 
   it "#upcoming_tasks" do
-    Highrise::Task.should_receive(:find).with(:all, {:from=>"/subjects/1/tasks.xml"}).and_return("tasks")
-    subject.upcoming_tasks.should == "tasks"
+    expect(Highrise::Task).to receive(:find).with(:all, {:from=>"/subjects/1/tasks.xml"}).and_return("tasks")
+    expect(subject.upcoming_tasks).to eq("tasks")
   end
   
-  it { subject.label.should == "Subject" }
+  it { expect(subject.label).to eq("Subject") }
 end
