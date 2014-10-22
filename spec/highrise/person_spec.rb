@@ -8,7 +8,7 @@ describe Highrise::Person do
 
   it_should_behave_like "a paginated class"
   it_should_behave_like "a taggable class"
-  it_should_behave_like "a searchable class"
+  it_should_behave_like "a searchable class", Highrise::Person, "people"
 
   describe "#company" do
     it "returns nil when it doesn't have a company" do

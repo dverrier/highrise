@@ -6,7 +6,7 @@ describe Highrise::Company do
   it { is_expected.to be_a_kind_of Highrise::Base }
   it_should_behave_like "a paginated class"
   it_should_behave_like "a taggable class"
-  it_should_behave_like "a searchable class"
+  it_should_behave_like "a searchable class", Highrise::Company, "companies"
 
   it "#people" do
     expect(Highrise::Person).to receive(:find_all_across_pages).with(:from=>"/companies/1/people.xml").and_return("people")
